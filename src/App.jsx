@@ -607,7 +607,6 @@ function Navigation({ language, searchOnly = false }) {
   const [pinnedMenu, setPinnedMenu] = useState(null)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [showPackagesHint, setShowPackagesHint] = useState(() => getAppPathname() === '/' && localStorage.getItem('axiom_packages_hint_seen') !== '1')
   const headerRef = useRef(null)
   const menuRef = useRef(null)
   const triggerRefs = useRef({})
@@ -673,11 +672,6 @@ function Navigation({ language, searchOnly = false }) {
     info: { items: moreInfo, label: 'More info' },
   }
 
-  const dismissPackagesHint = () => {
-    setShowPackagesHint(false)
-    localStorage.setItem('axiom_packages_hint_seen', '1')
-  }
-
   const currentMenu = activeMenu ? menus[activeMenu] : null
 
   return (
@@ -691,7 +685,7 @@ function Navigation({ language, searchOnly = false }) {
       </a>
 
       <nav className="main-nav" aria-label="Primary navigation">
-        <a className="nav-trigger" href="/packages" onClick={dismissPackagesHint}>Packages</a>
+        <a className="nav-trigger" href="/packages">Packages</a>
         <a className="nav-trigger" href="/documents">Documents</a>
         {Object.entries(menus).map(([key, menu]) => (
           <button
@@ -714,7 +708,6 @@ function Navigation({ language, searchOnly = false }) {
             </svg>
           </button>
         ))}
-        {showPackagesHint && !searchOnly && <div className="packages-hint" role="status"><span>Check here to optimize your server.</span><button type="button" aria-label="Dismiss tip" onClick={dismissPackagesHint}>×</button></div>}
       </nav>
 
       <div className="nav-actions">
