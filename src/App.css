@@ -3314,6 +3314,7 @@
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   gap: 44px;
   padding-bottom: 38px;
+  align-items: center;
 }
 
 .footer-brand > a {
@@ -3348,6 +3349,8 @@
   grid-column: 2;
   grid-template-columns: repeat(3, minmax(150px, 1fr));
   gap: 42px;
+  align-self: center;
+  justify-self: center;
 }
 
 .footer-links > div {
