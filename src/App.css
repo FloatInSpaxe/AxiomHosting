@@ -864,9 +864,11 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
+  line-height: 1;
 }
 
 .discord-logo {
+  display: block;
   width: 20px;
   height: 20px;
   flex: 0 0 auto;
