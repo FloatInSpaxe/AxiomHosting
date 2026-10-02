@@ -1094,10 +1094,10 @@
 }
 
 .why-us-grid article:hover {
-  background: rgba(255, 255, 255, 0.055);
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 34px rgba(255, 255, 255, 0.12), inset 0 0 22px rgba(255, 255, 255, 0.025);
-  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.17);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14), 0 0 14px rgba(255, 255, 255, 0.025);
+  transform: translateY(-2px);
 }
 
 .why-us-grid .why-intro {
