@@ -1430,7 +1430,7 @@ function App() {
 
         <section className="content-section pricing-section" aria-labelledby="pricing-title">
           <div className="section-heading">
-            <h2 id="pricing-title">Our pricing</h2>
+            <h2 id="pricing-title">Our <span className="section-title-muted">Pricing</span></h2>
           </div>
           <div className="home-billing-cycle" aria-label="Billing cycle" style={{ '--active-index': billingCycles.findIndex((cycle) => cycle.id === pricingCycle) }}>
             {billingCycles.map((cycle) => (
@@ -1445,7 +1445,7 @@ function App() {
                 {plan.featured && <span className="featured-label">Most popular</span>}
                 <div className="plan-heading"><MobPlanIcon name={plan.icon} /><div><h3>{plan.name}</h3><p>{plan.note}</p></div></div>
                 <p className="plan-price"><strong>${(plan.monthlyPrice * activeBillingCycle.multiplier).toFixed(activeBillingCycle.id === 'monthly' ? 0 : 2)}</strong><small>{activeBillingCycle.suffix}</small></p>
-                <div className="plan-value-summary"><span>${plan.monthlyPrice}/month</span><span>${getBundleDiscount(plan).normalValue.toFixed(2)} normal value</span><strong>Save ${getBundleDiscount(plan).dollars.toFixed(2)} · {Math.round(getBundleDiscount(plan).percentage)}%</strong></div>
+                <div className="plan-value-summary"><span>${getBundleDiscount(plan).normalValue.toFixed(2)} normal value</span><strong>Save ${getBundleDiscount(plan).dollars.toFixed(2)} · {Math.round(getBundleDiscount(plan).percentage)}%</strong></div>
                 <div className="plan-divider" />
                 <ul className="plan-features"><li>{plan.ram} GB RAM</li><li>{plan.cpu} CPU {plan.cpu === 1 ? 'thread' : 'threads'}</li><li>{plan.storage} GB NVMe storage</li><li>Ideal for up to {plan.playerGuide} players</li></ul>
                 <a href={`/packages/configure/${plan.id}`}>{t('Get started')}</a>
