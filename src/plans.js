@@ -1,0 +1,142 @@
+export const resourceRates = {
+  ramPerGb: 1,
+  cpuPerThread: 2.5,
+  storagePerGb: 0.05,
+}
+
+export const hostingPlans = [
+  {
+    id: 'minecraft-bee',
+    name: 'Bee',
+    icon: 'bee',
+    monthlyPrice: 5,
+    ram: 2,
+    cpu: 2,
+    storage: 20,
+    ipv4: 1,
+    playerGuide: 8,
+    note: 'Private worlds',
+    description: 'A lightweight server for a private world and a few friends.',
+  },
+  {
+    id: 'minecraft-wolf',
+    name: 'Wolf',
+    icon: 'wolf',
+    monthlyPrice: 9,
+    ram: 4,
+    cpu: 2,
+    storage: 30,
+    ipv4: 1,
+    playerGuide: 16,
+    note: 'Small groups',
+    description: 'A balanced server for an established survival world.',
+  },
+  {
+    id: 'minecraft-spider',
+    name: 'Spider',
+    icon: 'spider',
+    monthlyPrice: 12,
+    ram: 6,
+    cpu: 2,
+    storage: 40,
+    ipv4: 1,
+    playerGuide: 24,
+    note: 'Growing worlds',
+    description: 'More headroom for a growing world and a larger player group.',
+    featured: true,
+  },
+  {
+    id: 'minecraft-blaze',
+    name: 'Blaze',
+    icon: 'blaze',
+    monthlyPrice: 15,
+    ram: 8,
+    cpu: 3,
+    storage: 50,
+    ipv4: 1,
+    playerGuide: 32,
+    note: 'Active communities',
+    description: 'A capable server for active communities, plugins, and expanding worlds.',
+  },
+  {
+    id: 'minecraft-slime',
+    name: 'Slime',
+    icon: 'slime',
+    monthlyPrice: 18,
+    ram: 10,
+    cpu: 3,
+    storage: 60,
+    ipv4: 1,
+    playerGuide: 40,
+    note: 'Busy survival worlds',
+    description: 'Extra room for busy survival servers and a growing plugin list.',
+  },
+  {
+    id: 'minecraft-wither',
+    name: 'Wither',
+    icon: 'wither',
+    monthlyPrice: 20,
+    ram: 12,
+    cpu: 4,
+    storage: 70,
+    ipv4: 1,
+    playerGuide: 48,
+    note: 'Large communities',
+    description: 'A high-capacity server for large communities and demanding plugins.',
+  },
+  {
+    id: 'minecraft-guardian',
+    name: 'Guardian',
+    icon: 'guardian',
+    monthlyPrice: 24,
+    ram: 16,
+    cpu: 4,
+    storage: 80,
+    ipv4: 1,
+    playerGuide: 64,
+    note: 'Advanced communities',
+    description: 'Reliable capacity for advanced communities and demanding world activity.',
+  },
+  {
+    id: 'minecraft-iron-golem',
+    name: 'Iron Golem',
+    icon: 'iron-golem',
+    monthlyPrice: 26,
+    ram: 20,
+    cpu: 5,
+    storage: 90,
+    ipv4: 1,
+    playerGuide: 80,
+    note: 'Large modpacks',
+    description: 'Strong resources for large modpacks and heavily populated persistent worlds.',
+  },
+  {
+    id: 'minecraft-warden',
+    name: 'Warden',
+    icon: 'warden',
+    monthlyPrice: 28,
+    ram: 24,
+    cpu: 5,
+    storage: 100,
+    ipv4: 1,
+    playerGuide: 64,
+    note: 'Modded networks',
+    description: 'Maximum headroom for modpacks, networks, and large persistent worlds.',
+  },
+]
+
+export function getNormalResourceValue(plan) {
+  return (plan.ram * resourceRates.ramPerGb)
+    + (plan.cpu * resourceRates.cpuPerThread)
+    + (plan.storage * resourceRates.storagePerGb)
+}
+
+export function getBundleDiscount(plan) {
+  const normalValue = getNormalResourceValue(plan)
+  const dollars = normalValue - plan.monthlyPrice
+  return {
+    normalValue,
+    dollars,
+    percentage: (dollars / normalValue) * 100,
+  }
+}
