@@ -1143,9 +1143,9 @@
   height: 38px;
   place-items: center;
   color: #438cf6;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
 }
 
 .why-icon svg {
@@ -1261,7 +1261,7 @@
 
 .launcher-panel {
   display: grid;
-  grid-template-columns: minmax(300px, 0.55fr) minmax(0, 1.45fr);
+  grid-template-columns: minmax(420px, 0.7fr) minmax(0, 1.3fr);
   width: min(1480px, 100%);
   min-height: 0;
   margin: 0 auto;
@@ -1276,6 +1276,7 @@
 }
 
 .launcher-copy {
+  min-width: 0;
   text-align: left;
 }
 
@@ -1289,7 +1290,7 @@
 
 .launcher-panel h2 {
   margin: 0;
-  font-size: clamp(38px, 6vw, 82px);
+  font-size: clamp(38px, 4.8vw, 72px);
   line-height: 0.95;
   letter-spacing: -0.06em;
   white-space: nowrap;
@@ -4189,6 +4190,27 @@
 }
 
 @media (max-width: 1100px) and (min-width: 701px) {
+  .launcher-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .launcher-copy {
+    text-align: center;
+  }
+
+  .launcher-panel p {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .launcher-actions {
+    justify-content: center;
+  }
+
+  .macbook-frame {
+    justify-self: center;
+  }
+
   .pricing-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
