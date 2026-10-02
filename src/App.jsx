@@ -1444,8 +1444,8 @@ function App() {
               <article className={`pricing-card${plan.featured ? ' pricing-card--featured' : ''}`} key={plan.id}>
                 {plan.featured && <span className="featured-label">Most popular</span>}
                 <div className="plan-heading"><MobPlanIcon name={plan.icon} /><div><h3>{plan.name}</h3><p>{plan.note}</p></div></div>
-                <p className="plan-price"><strong>${(plan.monthlyPrice * activeBillingCycle.multiplier).toFixed(activeBillingCycle.id === 'monthly' ? 0 : 2)}</strong><small>{activeBillingCycle.suffix}</small></p>
-                <div className="plan-value-summary"><span>${getBundleDiscount(plan).normalValue.toFixed(2)} normal value</span><strong>Save ${getBundleDiscount(plan).dollars.toFixed(2)} · {Math.round(getBundleDiscount(plan).percentage)}%</strong></div>
+                <p className="plan-price"><strong>${(plan.monthlyPrice * activeBillingCycle.multiplier).toFixed(2)}</strong><small>{activeBillingCycle.suffix}</small></p>
+                <div className="plan-value-summary"><span>${getBundleDiscount(plan).normalValue.toFixed(2)} normal value</span><strong>{plan.discountPercentage > 0 ? `Save $${getBundleDiscount(plan).dollars.toFixed(2)} · ${plan.discountPercentage}%` : 'Standard resource pricing'}</strong></div>
                 <div className="plan-divider" />
                 <ul className="plan-features"><li>{plan.ram} GB RAM</li><li>{plan.cpu} CPU {plan.cpu === 1 ? 'thread' : 'threads'}</li><li>{plan.storage} GB NVMe storage</li><li>Ideal for up to {plan.playerGuide} players</li></ul>
                 <a href={`/packages/configure/${plan.id}`}>{t('Get started')}</a>

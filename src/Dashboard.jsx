@@ -5,7 +5,7 @@ import customPricingBackground from './assets/backgrounds/wallpaper_minecraft_vi
 import axiomSymbol from './assets/brand/axiom-symbol.png'
 import axiomHostingWordmark from './assets/brand/axiom-hosting-wordmark.png'
 import minecraftSteveFace from './assets/brand/minecraft-steve-face.svg'
-import { getBundleDiscount, hostingPlans } from './plans.js'
+import { getBundleDiscount, hostingPlans, resourceRates } from './plans.js'
 
 const serviceCatalog = [
   ...hostingPlans.map((plan) => ({
@@ -17,6 +17,7 @@ const serviceCatalog = [
     description: plan.description,
     tags: [`${plan.ram} GB RAM`, `${plan.cpu} CPU ${plan.cpu === 1 ? 'thread' : 'threads'}`, `${plan.storage} GB NVMe`],
   })),
+  { id: 'resource-rates', rateGuide: true },
   { id: 'minecraft-dragon', name: 'Custom', description: 'Build a Minecraft server around your own resource requirements.', tags: ['Custom resources', 'Build your own'], custom: true },
 ]
 
@@ -202,6 +203,18 @@ function ServicesPage() {
       <div className="package-grid">
         {serviceCatalog.map((service) => {
           const details = serviceDetails[service.id]
+          if (service.rateGuide) {
+            return (
+              <aside className="package-card package-rate-guide" key={service.id} aria-label="Custom resource rates">
+                <div className="package-rate-heading"><span>Simple resource pricing</span><h2>Need something different?</h2></div>
+                <div className="package-rate-boxes">
+                  <div><strong>$1.00</strong><span>per 1 GB RAM</span></div>
+                  <div><strong>$2.00</strong><span>per CPU thread</span></div>
+                  <div><strong>$4.50</strong><span>per 100 GB SSD</span></div>
+                </div>
+              </aside>
+            )
+          }
           if (service.custom) {
             return (
               <article className="package-card is-custom" key={service.id}>
@@ -211,7 +224,7 @@ function ServicesPage() {
               </article>
             )
           }
-          return <article className={`package-card${service.featured ? ' is-featured' : ''}`} key={service.id}>{service.featured && <span className="package-popular">Most popular</span>}<div className="package-icon" aria-hidden="true"><PackageMobIcon name={service.icon} /></div><div className="package-name"><h2>{service.name}</h2><span>24/7 always online</span></div><p className="package-price"><strong>${details.baseMonthly.toFixed(2)}</strong><small>/month</small></p><div className="package-divider" /><ul className="package-features"><li>{details.defaults.ram} GB RAM</li><li>{details.defaults.cpu} CPU threads</li><li>{details.defaults.ssd} GB NVMe storage</li><li>Ideal for up to {service.playerGuide} players</li></ul><div className="package-value"><span>${details.normalValue.toFixed(2)} normal value</span><strong>Save ${details.bundleDiscount.toFixed(2)} · {Math.round(details.bundleDiscountPercentage)}%</strong></div><a href={`/packages/configure/${service.id}`}>Select {service.name} <span aria-hidden="true">→</span></a></article>
+          return <article className={`package-card${service.featured ? ' is-featured' : ''}`} key={service.id}>{service.featured && <span className="package-popular">Most popular</span>}<div className="package-icon" aria-hidden="true"><PackageMobIcon name={service.icon} /></div><div className="package-name"><h2>{service.name}</h2><span>24/7 always online</span></div><p className="package-price"><strong>${details.baseMonthly.toFixed(2)}</strong><small>/month</small></p><div className="package-divider" /><ul className="package-features"><li>{details.defaults.ram} GB RAM</li><li>{details.defaults.cpu} CPU {details.defaults.cpu === 1 ? 'thread' : 'threads'}</li><li>{details.defaults.ssd} GB NVMe storage</li><li>Ideal for up to {service.playerGuide} players</li></ul><div className="package-value"><span>${details.normalValue.toFixed(2)} normal value</span><strong>{details.bundleDiscountPercentage > 0 ? `Save $${details.bundleDiscount.toFixed(2)} · ${Math.round(details.bundleDiscountPercentage)}%` : 'Standard resource pricing'}</strong></div><a href={`/packages/configure/${service.id}`}>Select {service.name} <span aria-hidden="true">→</span></a></article>
         })}
       </div>
     </>
@@ -286,8 +299,8 @@ function ServiceConfigurationPage({ serviceId, addToCart }) {
   if (!service) return <ServicesPage />
 
   const selectedCycle = configurationOptions.cycles.find((cycle) => cycle.id === configuration.cycle)
-  const resourcePrice = service.custom ? ((configuration.ram - 2) * 1) + ((configuration.cpu - 1) * 2.5) + (Math.max(0, configuration.ssd - 10) / 100 * 5) + ((configuration.ipv4 - 1) * 2.5) : 0
-  const monthlyPrice = service.baseMonthly + resourcePrice
+  const resourcePrice = service.custom ? (configuration.ram * resourceRates.ramPerGb) + (configuration.cpu * resourceRates.cpuPerThread) + (configuration.ssd * resourceRates.storagePerGb) + ((configuration.ipv4 - 1) * 2.5) : 0
+  const monthlyPrice = service.custom ? resourcePrice : service.baseMonthly
   const discountedMonthlyPrice = monthlyPrice * (1 - selectedCycle.discount)
   const totalPrice = discountedMonthlyPrice * selectedCycle.months
   const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice)
@@ -320,7 +333,7 @@ function ServiceConfigurationPage({ serviceId, addToCart }) {
             <div className="selected-package-value"><span>Normal resource value <strong>${service.normalValue.toFixed(2)}</strong></span><span>Bundle discount <strong>${service.bundleDiscount.toFixed(2)} · {Math.round(service.bundleDiscountPercentage)}%</strong></span></div>
           </article>}
           <fieldset className="billing-cycle"><legend>Billing cycle</legend><div>{configurationOptions.cycles.map((cycle) => <button className={configuration.cycle === cycle.id ? 'is-selected' : ''} type="button" key={cycle.id} onClick={() => updateConfiguration('cycle', cycle.id)}><span>{cycle.label}</span>{cycle.discount > 0 && <small>{Math.round(cycle.discount * 100)}% off</small>}</button>)}</div></fieldset>
-          {service.custom && <div className="resource-ranges"><ResourceRange label="CPU threads" value={configuration.cpu} min={1} max={16} step={1} suffix="" ticks={Array.from({ length: 16 }, (_, index) => index + 1)} onChange={(value) => updateConfiguration('cpu', value)} /><ResourceRange label="RAM" value={configuration.ram} min={2} max={64} step={2} suffix=" GB" ticks={[2, 8, 16, 24, 32, 40, 48, 56, 64]} onChange={(value) => updateConfiguration('ram', value)} /><ResourceRange label="NVMe storage" value={configuration.ssd} min={10} max={400} step={10} suffix=" GB" ticks={[10, 50, 100, 150, 200, 250, 300, 350, 400]} allowCustomAbove onChange={(value) => updateConfiguration('ssd', value)} /></div>}
+          {service.custom && <div className="resource-ranges"><ResourceRange label="CPU threads" value={configuration.cpu} min={1} max={16} step={1} suffix="" ticks={Array.from({ length: 16 }, (_, index) => index + 1)} onChange={(value) => updateConfiguration('cpu', value)} /><ResourceRange label="RAM" value={configuration.ram} min={1} max={64} step={1} suffix=" GB" ticks={[1, 8, 16, 24, 32, 40, 48, 56, 64]} onChange={(value) => updateConfiguration('ram', value)} /><ResourceRange label="NVMe storage" value={configuration.ssd} min={10} max={400} step={10} suffix=" GB" ticks={[10, 50, 100, 150, 200, 250, 300, 350, 400]} allowCustomAbove onChange={(value) => updateConfiguration('ssd', value)} /></div>}
           <section className="deployment-options" aria-labelledby="deployment-options-title">
             <div className="deployment-options-heading"><span>Deployment</span><h3 id="deployment-options-title">Choose where it runs</h3></div>
             <fieldset><legend>Location</legend><div className="deployment-option-grid">{configurationOptions.locations.map((location) => <button className={configuration.location === location ? 'is-selected' : ''} type="button" key={location} onClick={() => updateConfiguration('location', location)}>{location}</button>)}</div></fieldset>
@@ -345,7 +358,7 @@ function ServiceConfigurationPage({ serviceId, addToCart }) {
         <div className="configuration-faq-list">
           <details>
             <summary>What can I choose?</summary>
-            <p>The four standard packages have fixed resources. The Dragon Custom package lets you build a custom server. Every package includes billing-cycle, version, and location choices.</p>
+            <p>The nine standard packages have fixed resources. The Dragon Custom package lets you build a custom server. Every package includes billing-cycle, version, and location choices.</p>
           </details>
           <details>
             <summary>Which location should I choose?</summary>
