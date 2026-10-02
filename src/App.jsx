@@ -1283,10 +1283,6 @@ function App() {
   const [language, setLanguage] = useState(getPreferredLanguage)
   const [pricingCycle, setPricingCycle] = useState('monthly')
   const t = (text) => translate(language, text)
-  const sectionTitle = (text, leadingWords = 1) => {
-    const words = t(text).split(/\s+/)
-    return <>{words.slice(0, leadingWords).join(' ')} <span className="section-title-muted">{words.slice(leadingWords).join(' ')}</span></>
-  }
   const launcherDownload = import.meta.env.VITE_LAUNCHER_DOWNLOAD_URL
   const activeBillingCycle = billingCycles.find((cycle) => cycle.id === pricingCycle) ?? billingCycles[1]
 
@@ -1425,7 +1421,7 @@ function App() {
             </h1>
             <p>Fast Minecraft hosting for every world, community, and modpack.</p>
             <div className="hero-actions">
-              <HeroButton className="hero-button--primary hero-button--calm" href="/packages">Explore plans</HeroButton>
+              <HeroButton className="hero-button--primary hero-button--calm" href="/packages">{t('Get started')}</HeroButton>
               <HeroButton className="hero-button--secondary hero-button--calm" href={discordInvite}>
                 <DiscordIcon />
                 Join Discord
@@ -1434,37 +1430,17 @@ function App() {
           </div>
         </section>
 
-        <section className="why-us" id="why-axiom" aria-label="Why choose Axiom Hosting">
-          <div className="why-us-grid">
-            <article className="why-intro">
-              <h3>{sectionTitle('Why Axiom')}</h3>
-              <p>Minecraft hosting that stays focused on your world, players, and server performance.</p>
-            </article>
-            <article>
-              <h3>Simple server control</h3>
-              <p>Manage your Minecraft server, resources, versions, and console without unnecessary steps.</p>
-              <WhyIcon name="control" />
-            </article>
-            <article>
-              <h3>Minecraft support</h3>
-              <p>Get help choosing resources, moving a world, or preparing plugins and modpacks.</p>
-              <WhyIcon name="support" />
-            </article>
-            <article>
-              <h3>Move your world</h3>
-              <p>Bring an existing Minecraft world to Axiom without rebuilding it from the beginning.</p>
-              <WhyIcon name="switch" />
-            </article>
-            <article>
-              <h3>Resources that scale</h3>
-              <p>Choose the CPU, RAM, storage, bandwidth, version, and region your server needs.</p>
-              <WhyIcon name="options" />
-            </article>
-            <article>
-              <h3>One place for every world</h3>
-              <p>Keep your Minecraft servers, billing, console access, and support in one dashboard.</p>
-              <WhyIcon name="manage" />
-            </article>
+        <section className="why-us why-us--home" id="why-axiom" aria-label="Axiom Hosting features">
+          <header className="why-us-intro">
+            <h2>Run your server without hunting through the panel.</h2>
+            <p>Versions, files, console access, transfers, and support stay close to the server they belong to.</p>
+          </header>
+          <div className="why-us-list">
+            <article><h3>Server control</h3><p>Change versions, check resources, open the console, and manage the server from one clear workspace.</p></article>
+            <article><h3>Help from people who know Minecraft</h3><p>Get practical help with resource choices, plugins, modpacks, errors, and world transfers.</p></article>
+            <article><h3>World transfers</h3><p>Bring an existing server or Minecraft world to Axiom without starting again.</p></article>
+            <article><h3>Resources you can understand</h3><p>Choose the CPU, RAM, NVMe storage, version, and region that match how your server is used.</p></article>
+            <article><h3>One account for the whole server</h3><p>Keep hosting, billing, console access, backups, and support connected to the same server.</p></article>
           </div>
         </section>
 

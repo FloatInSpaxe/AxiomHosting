@@ -715,7 +715,7 @@
 .hero-section {
   position: relative;
   display: grid;
-  min-height: clamp(620px, 78svh, 760px);
+  min-height: calc(100svh - 72px);
   padding: 108px 56px 64px;
   align-items: center;
   overflow: hidden;
@@ -732,7 +732,7 @@
   bottom: 0;
   left: 50%;
   z-index: 0;
-  width: min(1600px, 100%);
+  width: 100%;
   background-image: url('./assets/backgrounds/homepage-hero.jpg');
   background-position: center;
   background-repeat: no-repeat;
@@ -751,37 +751,37 @@
     linear-gradient(rgba(7, 9, 13, 0.05), rgba(7, 9, 13, 0.12)),
     linear-gradient(
       to right,
-      rgba(16, 16, 16, 0.86) 0%,
-      rgba(16, 16, 16, 0.68) 26%,
-      rgba(16, 16, 16, 0.2) 54%,
-      rgba(16, 16, 16, 0.08) 78%,
-      rgba(16, 16, 16, 0.22) 100%
+      rgba(16, 16, 16, 0.7) 0%,
+      rgba(16, 16, 16, 0.48) 26%,
+      rgba(16, 16, 16, 0.13) 54%,
+      rgba(16, 16, 16, 0.03) 78%,
+      rgba(16, 16, 16, 0.1) 100%
     ),
     linear-gradient(
       to bottom,
-      rgba(16, 16, 16, 0.22) 0%,
+      rgba(16, 16, 16, 0.12) 0%,
       rgba(16, 16, 16, 0.02) 30%,
-      rgba(16, 16, 16, 0.08) 68%,
-      #101010 100%
+      rgba(16, 16, 16, 0.05) 68%,
+      rgba(16, 16, 16, 0.72) 100%
     );
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  width: min(1180px, 100%);
+  width: min(1000px, 100%);
   margin: 0 auto;
-  text-align: left;
+  text-align: center;
 }
 
 .hero-content h1 {
   display: flex;
-  width: min(650px, 72vw);
-  height: clamp(78px, 9vw, 112px);
+  width: min(900px, 92vw);
+  height: clamp(96px, 12vw, 140px);
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
-  margin: 0;
+  margin: 0 auto;
   color: #fff;
   font-size: clamp(54px, 8vw, 104px);
   font-weight: 650;
@@ -791,7 +791,7 @@
 
 .hero-content h1 img {
   display: block;
-  width: min(650px, 72vw);
+  width: min(900px, 92vw);
   height: auto;
 }
 
@@ -807,7 +807,7 @@
 
 .hero-content p {
   max-width: 520px;
-  margin: 18px 0 0;
+  margin: 28px auto 0;
   color: rgba(255, 255, 255, 0.9);
   font-size: 18px;
   line-height: 1.6;
@@ -837,9 +837,9 @@
 
 .hero-actions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 34px;
 }
 
 .hero-button-label {
@@ -1040,6 +1040,66 @@
 .why-us {
   padding: 70px max(24px, calc((100vw - 1180px) / 2)) 96px;
   background: #101010;
+}
+
+.why-us--home {
+  display: grid;
+  padding-top: 48px;
+  grid-template-columns: minmax(300px, 0.8fr) minmax(480px, 1.2fr);
+  align-items: start;
+  gap: clamp(64px, 9vw, 138px);
+}
+
+.why-us-intro {
+  padding-top: 8px;
+}
+
+.why-us-intro h2 {
+  max-width: 480px;
+  margin: 0;
+  font-size: clamp(38px, 4.5vw, 62px);
+  font-weight: 610;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+
+.why-us-intro p {
+  max-width: 440px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.why-us-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.why-us-list article {
+  display: grid;
+  padding: 25px 0 27px;
+  grid-template-columns: minmax(170px, 0.72fr) minmax(260px, 1fr);
+  gap: 34px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.why-us-list h3,
+.why-us-list p {
+  margin: 0;
+}
+
+.why-us-list h3 {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 620;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.why-us-list p {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .why-us-heading {
@@ -3684,6 +3744,16 @@
 }
 
 @media (max-width: 950px) and (min-width: 701px) {
+  .why-us--home {
+    grid-template-columns: 1fr;
+    gap: 54px;
+  }
+
+  .why-us-intro h2,
+  .why-us-intro p {
+    max-width: 650px;
+  }
+
   .domain-layout {
     grid-template-columns: 1fr;
     gap: 38px;
@@ -3727,12 +3797,6 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-  }
-
-  .packages-hint {
-    top: calc(100% + 10px);
-    left: 12px;
-    max-width: calc(100vw - 42px);
   }
 
   .nav-trigger {
@@ -3799,7 +3863,12 @@
   }
 
   .hero-content h1 {
+    width: min(540px, 100%);
     font-size: clamp(40px, 12vw, 66px);
+  }
+
+  .hero-content h1 img {
+    width: min(540px, 100%);
   }
 
   .hero-content p {
@@ -3813,6 +3882,20 @@
 
   .why-us {
     padding: 72px 20px;
+  }
+
+  .why-us--home {
+    display: block;
+    padding-top: 42px;
+  }
+
+  .why-us-list {
+    margin-top: 48px;
+  }
+
+  .why-us-list article {
+    grid-template-columns: 1fr;
+    gap: 9px;
   }
 
   .content-section {
