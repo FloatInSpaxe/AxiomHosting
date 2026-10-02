@@ -229,7 +229,7 @@
   position: relative;
   z-index: 1;
   display: flex;
-  width: 100%;
+  width: min(1600px, 100%);
   min-height: 38px;
   padding: 0 10px;
   align-items: center;
@@ -737,7 +737,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: saturate(0.84) contrast(1.02) brightness(0.78);
+  filter: saturate(0.76) contrast(1.04) brightness(0.64);
   transform: translateX(-50%);
 }
 
@@ -748,21 +748,34 @@
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(7, 9, 13, 0.05), rgba(7, 9, 13, 0.12)),
+    linear-gradient(rgba(7, 9, 13, 0.1), rgba(7, 9, 13, 0.1)),
     linear-gradient(
       to right,
-      rgba(16, 16, 16, 0.7) 0%,
-      rgba(16, 16, 16, 0.48) 26%,
-      rgba(16, 16, 16, 0.13) 54%,
-      rgba(16, 16, 16, 0.03) 78%,
-      rgba(16, 16, 16, 0.1) 100%
+      #101010 0%,
+      rgba(16, 16, 16, 0.99) 10%,
+      rgba(16, 16, 16, 0.92) 18%,
+      rgba(16, 16, 16, 0.58) 26%,
+      rgba(16, 16, 16, 0.18) 36%,
+      rgba(16, 16, 16, 0.02) 44%,
+      rgba(16, 16, 16, 0.02) 62%,
+      rgba(16, 16, 16, 0.28) 74%,
+      rgba(16, 16, 16, 0.82) 85%,
+      rgba(16, 16, 16, 0.98) 94%,
+      #101010 100%
     ),
     linear-gradient(
       to bottom,
-      rgba(16, 16, 16, 0.12) 0%,
-      rgba(16, 16, 16, 0.02) 30%,
-      rgba(16, 16, 16, 0.05) 68%,
-      rgba(16, 16, 16, 0.72) 100%
+      rgba(16, 16, 16, 0.32) 0%,
+      rgba(16, 16, 16, 0.04) 22%,
+      rgba(16, 16, 16, 0.12) 52%,
+      rgba(16, 16, 16, 0.72) 76%,
+      #101010 94%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(16, 16, 16, 0) 28%,
+      rgba(16, 16, 16, 0.05) 55%,
+      rgba(16, 16, 16, 0.48) 100%
     );
 }
 
@@ -1009,9 +1022,9 @@
 }
 
 .hero-section .hero-actions .hero-button--primary.hero-button--calm:hover {
-  color: #fff;
-  background: #3978d8;
-  box-shadow: 0 0 0 1px rgba(138, 182, 255, 0.2), 0 7px 18px rgba(0, 0, 0, 0.2);
+  color: #1d1d1d;
+  background: #eef4ff;
+  box-shadow: 0 0 0 1px rgba(138, 182, 255, 0.22), 0 7px 18px rgba(0, 0, 0, 0.2);
 }
 
 .hero-section .hero-actions .hero-button--secondary.hero-button--calm:hover {
@@ -1025,13 +1038,6 @@
   opacity: 0.84;
 }
 
-.hero-section .hero-actions .hero-button--primary.hero-button--calm {
-  color: #fff;
-  background: #2f64b5;
-  border-color: rgba(138, 182, 255, 0.34);
-  border-radius: 8px 3px 8px 8px;
-}
-
 .hero-button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
@@ -1040,66 +1046,6 @@
 .why-us {
   padding: 70px max(24px, calc((100vw - 1180px) / 2)) 96px;
   background: #101010;
-}
-
-.why-us--home {
-  display: grid;
-  padding-top: 48px;
-  grid-template-columns: minmax(300px, 0.8fr) minmax(480px, 1.2fr);
-  align-items: start;
-  gap: clamp(64px, 9vw, 138px);
-}
-
-.why-us-intro {
-  padding-top: 8px;
-}
-
-.why-us-intro h2 {
-  max-width: 480px;
-  margin: 0;
-  font-size: clamp(38px, 4.5vw, 62px);
-  font-weight: 610;
-  line-height: 1.02;
-  letter-spacing: -0.05em;
-}
-
-.why-us-intro p {
-  max-width: 440px;
-  margin: 24px 0 0;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.why-us-list {
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.why-us-list article {
-  display: grid;
-  padding: 25px 0 27px;
-  grid-template-columns: minmax(170px, 0.72fr) minmax(260px, 1fr);
-  gap: 34px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.why-us-list h3,
-.why-us-list p {
-  margin: 0;
-}
-
-.why-us-list h3 {
-  color: #fff;
-  font-size: 17px;
-  font-weight: 620;
-  line-height: 1.35;
-  letter-spacing: -0.015em;
-}
-
-.why-us-list p {
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 14px;
-  line-height: 1.65;
 }
 
 .why-us-heading {
@@ -3744,16 +3690,6 @@
 }
 
 @media (max-width: 950px) and (min-width: 701px) {
-  .why-us--home {
-    grid-template-columns: 1fr;
-    gap: 54px;
-  }
-
-  .why-us-intro h2,
-  .why-us-intro p {
-    max-width: 650px;
-  }
-
   .domain-layout {
     grid-template-columns: 1fr;
     gap: 38px;
@@ -3882,20 +3818,6 @@
 
   .why-us {
     padding: 72px 20px;
-  }
-
-  .why-us--home {
-    display: block;
-    padding-top: 42px;
-  }
-
-  .why-us-list {
-    margin-top: 48px;
-  }
-
-  .why-us-list article {
-    grid-template-columns: 1fr;
-    gap: 9px;
   }
 
   .content-section {
