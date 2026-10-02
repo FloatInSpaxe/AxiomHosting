@@ -1499,7 +1499,6 @@ function App() {
               <p>Keep modpacks, versions, and Axiom Minecraft servers together in one launcher.</p>
               <div className="launcher-actions">
                 {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download</a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download</a>}
-                <a className="launcher-action launcher-action--secondary" href="/launcher#about">Learn more</a>
               </div>
             </div>
             <div className="macbook-frame">
