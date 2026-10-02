@@ -4,6 +4,7 @@ import gamingBackground from './assets/backgrounds/wallpaper_minecraft_update_aq
 import customPricingBackground from './assets/backgrounds/wallpaper_minecraft_village_pillage_1920x1080.png'
 import axiomSymbol from './assets/brand/axiom-symbol.png'
 import axiomHostingWordmark from './assets/brand/axiom-hosting-wordmark.png'
+import minecraftSteveFace from './assets/brand/minecraft-steve-face.svg'
 import { getBundleDiscount, hostingPlans } from './plans.js'
 
 const serviceCatalog = [
@@ -134,9 +135,11 @@ function HomePage() {
           <h1>Servers</h1>
         </header>
         <div className="server-empty-simple">
-          <h2>No servers yet</h2>
-          <p>Start a new Minecraft server or move an existing world to Axiom.</p>
-          <div><a href="/packages">Create server</a><a href="/documents/world-transfer">Transfer a world</a></div>
+          <div className="server-empty-mark" aria-hidden="true"><img src={axiomSymbol} alt="" /><span /></div>
+          <h2>No servers</h2>
+          <p>Create your first Minecraft server, or bring an existing server to Axiom with our transfer guide.</p>
+          <div><a href="/packages">Create a server</a><a href="/documents/world-transfer">View transfer guide</a></div>
+          <small>Minecraft hosting, managed from your Axiom dashboard.</small>
         </div>
       </section>
     )
@@ -428,12 +431,8 @@ export function PublicStore({ pathname, footer }) {
   )
 }
 
-export default function Dashboard({ pathname, language = 'en', setLanguage = () => {} }) {
-  const [languageOpen, setLanguageOpen] = useState(false)
-
+export default function Dashboard({ pathname }) {
   const page = pathname.replace(/^\/dashboard\/?/, '') || 'home'
-  const dashboardLanguages = [{ code: 'en', label: 'English' }, { code: 'de', label: 'Deutsch' }, { code: 'fr', label: 'Français' }]
-  const activeLanguage = dashboardLanguages.find((option) => option.code === language) ?? dashboardLanguages[0]
   const accountName = localStorage.getItem('axiom_account_name') || import.meta.env.VITE_ACCOUNT_NAME || 'Account'
   const pages = {
     home: <HomePage />,
@@ -446,27 +445,20 @@ export default function Dashboard({ pathname, language = 'en', setLanguage = () 
       <aside className="dashboard-sidebar">
         <a className="dashboard-brand" href="/" aria-label="Axiom Hosting website"><img className="dashboard-brand-wordmark" src={axiomHostingWordmark} alt="AxiomHosting" /><img className="dashboard-brand-symbol" src={axiomSymbol} alt="" /></a>
 
+        <button className="dashboard-profile-control" type="button" aria-label="Open account profile">
+          <img className="dashboard-profile-avatar" src={minecraftSteveFace} alt="Minecraft character avatar" />
+          <span className="dashboard-profile-copy"><strong>{accountName}</strong><small>Account</small></span>
+        </button>
+
         <nav className="dashboard-nav" aria-label="Dashboard navigation">
           <a className={page === 'home' ? 'is-active' : ''} href="/dashboard"><span className="dashboard-nav-icon"><DashboardIcon name="home" /></span><span><strong>Servers</strong></span></a>
-          <a href="/packages"><span className="dashboard-nav-icon"><DashboardIcon name="services" /></span><span><strong>Order</strong></span></a>
+          <a href="/packages"><span className="dashboard-nav-icon"><DashboardIcon name="services" /></span><span><strong>Order a server</strong></span></a>
           <a className={page === 'billing' ? 'is-active' : ''} href="/dashboard/billing"><span className="dashboard-nav-icon"><DashboardIcon name="billing" /></span><span><strong>Billing</strong></span></a>
         </nav>
 
         <div className="dashboard-sidebar-bottom">
-          <button className="dashboard-profile-control" type="button" aria-label="Open account profile">
-            <span className="dashboard-profile-avatar">{accountName === 'Account' ? <DashboardIcon name="account" /> : accountName.slice(0, 1).toUpperCase()}</span>
-            <span className="dashboard-profile-name">{accountName}</span>
-          </button>
-          <div className="dashboard-language-control" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setLanguageOpen(false) }}>
-            <button className="dashboard-language-trigger" type="button" aria-label="Choose language" aria-expanded={languageOpen} onClick={() => setLanguageOpen((current) => !current)}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14.2 14.2 0 0 1 0 18M12 3a14.2 14.2 0 0 0 0 18" /></svg>
-              <span className="dashboard-language-label">{activeLanguage.code.toUpperCase()}</span>
-              <svg className="dashboard-language-chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="m2.25 4.5 3.75 3 3.75-3" /></svg>
-            </button>
-            {languageOpen && <div className="dashboard-language-menu" role="menu">{dashboardLanguages.map((option) => <button className={option.code === activeLanguage.code ? 'is-selected' : ''} type="button" role="menuitemradio" aria-checked={option.code === activeLanguage.code} key={option.code} onClick={() => { setLanguage(option.code); setLanguageOpen(false) }}><span>{option.label}</span>{option.code === activeLanguage.code && <span aria-hidden="true">✓</span>}</button>)}</div>}
-          </div>
           <a href="/support"><span className="dashboard-nav-icon"><DashboardIcon name="support" /></span><span><strong>Get support</strong></span></a>
-          <a className="dashboard-logout" href="/"><span className="dashboard-nav-icon"><DashboardIcon name="logout" /></span><span><strong>Logout</strong></span></a>
+          <a className="dashboard-logout" href="/"><span className="dashboard-nav-icon"><DashboardIcon name="logout" /></span><span><strong>Log out</strong></span></a>
         </div>
       </aside>
       <main className="dashboard-main">{pages[page] ?? <HomePage />}</main>

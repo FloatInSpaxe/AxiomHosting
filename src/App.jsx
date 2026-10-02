@@ -1425,16 +1425,11 @@ function App() {
             </h1>
             <p>Fast Minecraft hosting for every world, community, and modpack.</p>
             <div className="hero-actions">
-              <div className="hero-action-item">
-                <HeroButton className="hero-button--primary hero-button--calm" href="/packages">{t('Get started')}</HeroButton>
-              </div>
-              <div className="hero-action-item">
-                <HeroButton className="hero-button--secondary hero-button--calm" href={discordInvite}>
-                  <DiscordIcon />
-                  Join Discord
-                </HeroButton>
-                <small className="discord-player-note">Players welcome</small>
-              </div>
+              <HeroButton className="hero-button--primary hero-button--calm" href="/packages">Explore plans</HeroButton>
+              <HeroButton className="hero-button--secondary hero-button--calm" href={discordInvite}>
+                <DiscordIcon />
+                Join Discord
+              </HeroButton>
             </div>
           </div>
         </section>
