@@ -1319,7 +1319,7 @@
 
 .launcher-actions {
   display: flex;
-  margin-top: 0;
+  margin-top: 24px;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -1367,7 +1367,7 @@
 
 .macbook-frame {
   position: relative;
-  width: min(1320px, 100%);
+  width: min(1020px, 100%);
   aspect-ratio: 16 / 10;
   padding: 0;
   background: transparent;
@@ -3299,7 +3299,7 @@
 }
 
 .site-footer {
-  padding: 72px 22px 28px;
+  padding: 48px 22px 22px;
   background: rgba(16, 16, 16, 0.38);
   backdrop-filter: blur(18px) saturate(110%);
   -webkit-backdrop-filter: blur(18px) saturate(110%);
@@ -3308,8 +3308,8 @@
 .footer-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 64px;
-  padding-bottom: 64px;
+  gap: 44px;
+  padding-bottom: 38px;
 }
 
 .footer-brand > a {
@@ -3333,7 +3333,7 @@
 
 .footer-brand p {
   max-width: 330px;
-  margin: 16px 0 0;
+  margin: 10px 0 0;
   color: rgba(255, 255, 255, 0.52);
   font-size: 14px;
   line-height: 1.6;
@@ -3343,18 +3343,18 @@
   display: grid;
   grid-column: 2;
   grid-template-columns: repeat(3, minmax(150px, 1fr));
-  gap: 64px;
+  gap: 42px;
 }
 
 .footer-links > div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 11px;
+  gap: 8px;
 }
 
 .footer-links h2 {
-  margin: 0 0 7px;
+  margin: 0 0 4px;
   color: rgba(255, 255, 255, 0.42);
   font-size: 12px;
   font-weight: 700;
@@ -3378,7 +3378,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding-top: 24px;
+  padding-top: 18px;
   color: rgba(255, 255, 255, 0.38);
   font-size: 13px;
 }
@@ -4086,13 +4086,13 @@
   }
 
   .site-footer {
-    padding: 56px 14px 24px;
+    padding: 42px 14px 20px;
   }
 
   .footer-main {
     grid-template-columns: 1fr;
-    gap: 44px;
-    padding-bottom: 48px;
+    gap: 32px;
+    padding-bottom: 34px;
   }
 
   .footer-links {

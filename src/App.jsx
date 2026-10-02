@@ -1460,15 +1460,15 @@ function App() {
             <div className="launcher-copy">
               <h2 id="launcher-title">Mod Launcher</h2>
               <p>Get started with modpacks, versions, and your Axiom servers in one place.</p>
+              <div className="launcher-actions">
+                {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download</a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download</a>}
+              </div>
             </div>
             <div className="macbook-frame">
               <div className="launcher-window" aria-label="Launcher preview">
                 <div className="launcher-window-bar" aria-hidden="true"><i /><i /><i /></div>
                 <div className="launcher-window-empty" />
               </div>
-            </div>
-            <div className="launcher-actions">
-              {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download</a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download</a>}
             </div>
           </div>
         </section>
