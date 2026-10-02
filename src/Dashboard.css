@@ -137,9 +137,13 @@
 }
 
 .dashboard-nav a.is-active {
-  color: #d9e7ff;
-  background: rgba(67, 140, 246, 0.11);
-  box-shadow: inset 2px 0 #438cf6;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: none;
+}
+
+.dashboard-nav a.is-active .dashboard-nav-icon {
+  color: #78a4ea;
 }
 
 .dashboard-nav-icon {
