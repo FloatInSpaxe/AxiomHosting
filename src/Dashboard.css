@@ -291,15 +291,24 @@
 }
 
 .dashboard-sidebar-bottom .dashboard-logout {
-  margin-top: 0;
+  margin-top: 10px;
+  padding-top: 10px;
+  color: #e47a7a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
 }
 
 .dashboard-sidebar-bottom .dashboard-logout strong {
-  color: inherit;
+  color: #e47a7a;
 }
 
 .dashboard-sidebar-bottom .dashboard-logout:hover strong {
-  color: #fff;
+  color: #ff9a9a;
+}
+
+.dashboard-sidebar-bottom .dashboard-logout:hover {
+  color: #ff9a9a;
+  background: transparent;
 }
 
 .dashboard-sidebar-bottom .dashboard-logout::before {
@@ -520,6 +529,10 @@
 
 .dashboard-topbar .dashboard-profile-control {
   pointer-events: auto;
+  background: #232323;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .dashboard-profile-control:hover {
@@ -847,11 +860,12 @@
 }
 
 .server-overview--empty {
-  display: grid;
+  display: flex;
   width: min(820px, 100%);
   min-height: calc(100vh - 120px);
   margin: 0 auto;
-  grid-template-rows: auto 1fr;
+  align-items: center;
+  justify-content: center;
 }
 
 .server-index-header {
@@ -864,8 +878,8 @@
 
 .server-empty-simple {
   width: min(530px, 100%);
-  margin: auto;
-  padding: 48px 0 92px;
+  margin: 0 auto;
+  padding: 0 0 58px;
   text-align: center;
 }
 

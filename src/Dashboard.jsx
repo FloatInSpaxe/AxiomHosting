@@ -141,15 +141,10 @@ function HomePage({ ownedServices = defaultOwnedServices }) {
   if (!ownedServices.length) {
     return (
       <section className="server-overview server-overview--empty">
-        <header className="server-index-header">
-          <h1>Servers</h1>
-        </header>
         <div className="server-empty-simple">
-          <div className="server-empty-mark" aria-hidden="true"><img src={axiomSymbol} alt="" /><span /></div>
-          <h2>No servers</h2>
-          <p>Create your first Minecraft server, or bring an existing server to Axiom with our transfer guide.</p>
-          <div><a href="/packages">Create a server</a><a href="/documents/world-transfer">View transfer guide</a></div>
-          <small>Minecraft hosting, managed from your Axiom dashboard.</small>
+          <h2>No servers yet</h2>
+          <p>You do not have a Minecraft server on this account yet.</p>
+          <div><a href="/packages">Buy a server</a><a href="/documents">View documents</a></div>
         </div>
       </section>
     )
