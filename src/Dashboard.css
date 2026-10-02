@@ -1436,7 +1436,63 @@
 .package-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 16px;
+  gap: 22px;
+  margin-top: 76px;
+}
+
+.packages-hero {
+  position: relative;
+  display: grid;
+  width: 100vw;
+  min-height: 560px;
+  margin-top: -148px;
+  margin-left: calc(50% - 50vw);
+  padding: 148px 24px 70px;
+  place-items: center;
+  overflow: hidden;
+  text-align: center;
+  background: #101010;
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
+.packages-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: url('./assets/backgrounds/wallpaper_minecraft_village_pillage_1920x1080.png') center / cover no-repeat;
+  filter: saturate(0.76) brightness(0.58);
+  transform: scale(1.015);
+}
+
+.packages-hero::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(16, 16, 16, 0.76), rgba(16, 16, 16, 0.12) 35%, rgba(16, 16, 16, 0.12) 65%, rgba(16, 16, 16, 0.76)),
+    linear-gradient(0deg, #101010 0%, rgba(16, 16, 16, 0.06) 42%, rgba(16, 16, 16, 0.3) 100%);
+}
+
+.packages-hero h1 {
+  margin: 0;
+  font-size: clamp(58px, 8vw, 104px);
+  font-weight: 630;
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.packages-hero h1 span {
+  color: #438cf6;
+}
+
+.packages-hero p {
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 .package-card {
@@ -1617,7 +1673,34 @@
   grid-template-columns: minmax(240px, 0.85fr) minmax(380px, 1.5fr) minmax(180px, 0.5fr);
   gap: 36px;
   align-items: center;
-  background: linear-gradient(100deg, rgba(38, 74, 135, 0.17), rgba(16, 16, 16, 0.52) 58%);
+  overflow: hidden;
+  background: #121212;
+  isolation: isolate;
+}
+
+.package-card.is-custom::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 auto;
+  width: 66%;
+  background:
+    linear-gradient(rgba(15, 28, 50, 0.46), rgba(11, 19, 32, 0.62)),
+    url('./assets/backgrounds/wallpaper_minecraft_update_aquatic_1920x1080.png') center / cover no-repeat;
+  opacity: 0.62;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 24%, #000 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 24%, #000 100%);
+}
+
+.package-card.is-custom > * {
+  position: relative;
+  z-index: 1;
+}
+
+.package-card.is-custom .package-name span,
+.package-card.is-custom .package-features li {
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.72);
 }
 
 .package-custom-heading {
@@ -3575,6 +3658,20 @@
 }
 
 @media (max-width: 700px) {
+  .packages-hero {
+    min-height: 480px;
+    margin-top: -130px;
+    padding: 130px 18px 54px;
+  }
+
+  .packages-hero h1 {
+    font-size: clamp(48px, 15vw, 72px);
+  }
+
+  .package-grid {
+    margin-top: 52px;
+  }
+
   .server-empty-workspace {
     width: 100%;
     margin: auto 0;

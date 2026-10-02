@@ -196,7 +196,9 @@ function ServerWorkspacePage({ server, tab }) {
 function ServicesPage() {
   return (
     <>
-      <PageHeader title="Packages" centered />
+      <section className="packages-hero" aria-labelledby="packages-title">
+        <div><h1 id="packages-title">Our <span>Packages</span></h1><p>Choose the Minecraft server package that fits your world.</p></div>
+      </section>
       <div className="package-grid">
         {serviceCatalog.map((service) => {
           const details = serviceDetails[service.id]
