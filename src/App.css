@@ -657,7 +657,6 @@
   min-width: 0;
   padding: 12px 7px;
   color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 0;
   transition: color 180ms ease;
 }
@@ -665,10 +664,6 @@
 .menu-item:hover {
   color: #8ab6ff;
   background: transparent;
-}
-
-.menu-item:nth-last-child(-n + 2) {
-  border-bottom-color: transparent;
 }
 
 .menu-item > span:last-child {
