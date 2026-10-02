@@ -1430,8 +1430,7 @@ function App() {
 
         <section className="content-section pricing-section" aria-labelledby="pricing-title">
           <div className="section-heading">
-            <h2 id="pricing-title">Pricing</h2>
-            <p>Choose a package for your world.</p>
+            <h2 id="pricing-title">Our pricing</h2>
           </div>
           <div className="home-billing-cycle" aria-label="Billing cycle" style={{ '--active-index': billingCycles.findIndex((cycle) => cycle.id === pricingCycle) }}>
             {billingCycles.map((cycle) => (
@@ -1459,17 +1458,17 @@ function App() {
         <section className="content-section launcher-section" id="launcher" aria-labelledby="launcher-title">
           <div className="launcher-panel">
             <div className="launcher-copy">
-              <h2 id="launcher-title">Download our mod launcher.</h2>
-              <p>Keep modpacks, versions, and Axiom Minecraft servers together in one launcher.</p>
-              <div className="launcher-actions">
-                {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download</a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download</a>}
-              </div>
+              <h2 id="launcher-title">Mod Launcher</h2>
+              <p>Get started with modpacks, versions, and your Axiom servers in one place.</p>
             </div>
             <div className="macbook-frame">
               <div className="launcher-window" aria-label="Launcher preview">
                 <div className="launcher-window-bar" aria-hidden="true"><i /><i /><i /></div>
                 <div className="launcher-window-empty" />
               </div>
+            </div>
+            <div className="launcher-actions">
+              {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download</a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download</a>}
             </div>
           </div>
         </section>
