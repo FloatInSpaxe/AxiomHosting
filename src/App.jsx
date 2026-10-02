@@ -254,8 +254,6 @@ const moreInfo = [
   },
 ]
 
-const searchSuggestions = ['Search', 'Minecraft guides', 'Search', 'plugins', 'Search', 'server setup', 'Search', 'support']
-
 const languages = [
   { code: 'en', label: 'English' },
   { code: 'de', label: 'Deutsch' },
@@ -569,39 +567,6 @@ function MenuItems({ items, showIcons = false, language }) {
   ))
 }
 
-function SearchSuggestion({ language }) {
-  const [wordIndex, setWordIndex] = useState(0)
-  const [text, setText] = useState('')
-  const [isDeleting, setIsDeleting] = useState(false)
-
-  useEffect(() => {
-    const word = translate(language, searchSuggestions[wordIndex])
-    let delay = isDeleting ? 55 : 90
-
-    if (!isDeleting && text === word) delay = word === 'Search' ? 5000 : 1100
-    if (isDeleting && text === '') delay = 220
-
-    const timer = window.setTimeout(() => {
-      if (!isDeleting && text === word) {
-        setIsDeleting(true)
-        return
-      }
-
-      if (isDeleting && text === '') {
-        setIsDeleting(false)
-        setWordIndex((current) => (current + 1) % searchSuggestions.length)
-        return
-      }
-
-      setText(word.slice(0, text.length + (isDeleting ? -1 : 1)))
-    }, delay)
-
-    return () => window.clearTimeout(timer)
-  }, [isDeleting, language, text, wordIndex])
-
-  return <span className="search-suggestion" aria-hidden="true">{text}</span>
-}
-
 function Navigation({ language, searchOnly = false }) {
   const [activeMenu, setActiveMenu] = useState(null)
   const [pinnedMenu, setPinnedMenu] = useState(null)
@@ -722,8 +687,7 @@ function Navigation({ language, searchOnly = false }) {
             <path d="m16 16 4 4" />
           </svg>
           <label className="visually-hidden" htmlFor="site-search">{translate(language, 'Search')}</label>
-          <input id="site-search" type="search" placeholder={searchOnly ? translate(language, 'Search') : ' '} readOnly aria-haspopup="dialog" />
-          {!searchOnly && <SearchSuggestion language={language} />}
+          <input id="site-search" type="search" placeholder={searchOnly ? translate(language, 'Search') : 'Search Documents'} readOnly aria-haspopup="dialog" />
         </form>
         <HeroButton className="hero-button--secondary login-button" href="/dashboard">{translate(language, 'Login')}</HeroButton>
       </div>

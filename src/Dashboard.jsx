@@ -62,7 +62,17 @@ const configurationOptions = {
 }
 
 const billingRecords = []
-const ownedServices = []
+const defaultOwnedServices = []
+
+function readOwnedServices() {
+  if (typeof localStorage === 'undefined') return defaultOwnedServices
+  try {
+    const stored = JSON.parse(localStorage.getItem('axiom_owned_services') || '[]')
+    return Array.isArray(stored) ? stored : defaultOwnedServices
+  } catch {
+    return defaultOwnedServices
+  }
+}
 
 function readCartCookie() {
   const value = document.cookie.split('; ').find((entry) => entry.startsWith('axiom_cart='))?.split('=').slice(1).join('=')
@@ -125,7 +135,7 @@ function PageHeader({ title, copy, centered = false }) {
   )
 }
 
-function HomePage() {
+function HomePage({ ownedServices = defaultOwnedServices }) {
   const panelUrl = import.meta.env.VITE_PTERODACTYL_PANEL_URL
 
   if (!ownedServices.length) {
@@ -163,6 +173,26 @@ function HomePage() {
               : <button type="button" disabled>Console not connected</button>}
           </article>
         ))}
+      </div>
+    </section>
+  )
+}
+
+function ServerWorkspacePage({ server, tab }) {
+  const labels = { console: 'Console', files: 'Files', backups: 'Backups', settings: 'Settings' }
+  const descriptions = {
+    console: 'View live server output and run commands.',
+    files: 'Browse and manage the files for this Minecraft server.',
+    backups: 'Create, download, and restore server backups.',
+    settings: 'Manage versions, startup options, networking, and server details.',
+  }
+  return (
+    <section className="server-workspace-page">
+      <PageHeader title={labels[tab]} copy={`${server.name} · ${descriptions[tab]}`} />
+      <div className={`server-workspace-panel server-workspace-panel--${tab}`}>
+        <span>{server.name}</span>
+        <h2>{labels[tab]}</h2>
+        <p>{descriptions[tab]}</p>
       </div>
     </section>
   )
@@ -432,10 +462,14 @@ export function PublicStore({ pathname, footer }) {
 }
 
 export default function Dashboard({ pathname }) {
+  const [ownedServices] = useState(readOwnedServices)
   const page = pathname.replace(/^\/dashboard\/?/, '') || 'home'
+  const serverRoute = page.match(/^server\/([^/]+)\/(console|files|backups|settings)$/)
+  const activeServer = serverRoute ? ownedServices.find((server) => String(server.id) === decodeURIComponent(serverRoute[1])) : null
+  const activeServerTab = serverRoute?.[2]
   const accountName = localStorage.getItem('axiom_account_name') || import.meta.env.VITE_ACCOUNT_NAME || 'Account'
   const pages = {
-    home: <HomePage />,
+    home: <HomePage ownedServices={ownedServices} />,
     billing: <BillingPage />,
     support: <SupportPage />,
   }
@@ -445,23 +479,37 @@ export default function Dashboard({ pathname }) {
       <aside className="dashboard-sidebar">
         <a className="dashboard-brand" href="/" aria-label="Axiom Hosting website"><img className="dashboard-brand-wordmark" src={axiomHostingWordmark} alt="AxiomHosting" /><img className="dashboard-brand-symbol" src={axiomSymbol} alt="" /></a>
 
-        <button className="dashboard-profile-control" type="button" aria-label="Open account profile">
-          <img className="dashboard-profile-avatar" src={minecraftSteveFace} alt="Minecraft character avatar" />
-          <span className="dashboard-profile-copy"><strong>{accountName}</strong><small>Account</small></span>
-        </button>
-
         <nav className="dashboard-nav" aria-label="Dashboard navigation">
           <a className={page === 'home' ? 'is-active' : ''} href="/dashboard"><span className="dashboard-nav-icon"><DashboardIcon name="home" /></span><span><strong>Servers</strong></span></a>
           <a href="/packages"><span className="dashboard-nav-icon"><DashboardIcon name="services" /></span><span><strong>Order a server</strong></span></a>
           <a className={page === 'billing' ? 'is-active' : ''} href="/dashboard/billing"><span className="dashboard-nav-icon"><DashboardIcon name="billing" /></span><span><strong>Billing</strong></span></a>
         </nav>
 
+        {ownedServices.length > 0 && <nav className="dashboard-server-nav" aria-label="Your servers">
+          {ownedServices.map((server) => {
+            const serverPath = `/dashboard/server/${encodeURIComponent(server.id)}`
+            const isCurrentServer = activeServer?.id === server.id
+            return <details key={server.id} open={isCurrentServer}>
+              <summary><span className="dashboard-nav-icon"><DashboardIcon name="services" /></span><span className="dashboard-server-copy"><strong>{server.name}</strong><small>{server.status ?? 'Minecraft server'}</small></span><span className="dashboard-server-chevron" aria-hidden="true">⌄</span></summary>
+              <div className="dashboard-server-links">
+                {['console', 'files', 'backups', 'settings'].map((tab) => <a className={isCurrentServer && activeServerTab === tab ? 'is-active' : ''} href={`${serverPath}/${tab}`} key={tab}>{tab[0].toUpperCase() + tab.slice(1)}</a>)}
+              </div>
+            </details>
+          })}
+        </nav>}
+
         <div className="dashboard-sidebar-bottom">
           <a href="/support"><span className="dashboard-nav-icon"><DashboardIcon name="support" /></span><span><strong>Get support</strong></span></a>
           <a className="dashboard-logout" href="/"><span className="dashboard-nav-icon"><DashboardIcon name="logout" /></span><span><strong>Log out</strong></span></a>
         </div>
       </aside>
-      <main className="dashboard-main">{pages[page] ?? <HomePage />}</main>
+      <div className="dashboard-topbar">
+        <button className="dashboard-profile-control" type="button" aria-label="Open account profile">
+          <img className="dashboard-profile-avatar" src={minecraftSteveFace} alt="Minecraft character avatar" />
+          <span className="dashboard-profile-copy"><strong>{accountName}</strong><small>Account</small></span>
+        </button>
+      </div>
+      <main className="dashboard-main">{activeServer ? <ServerWorkspacePage server={activeServer} tab={activeServerTab} /> : (pages[page] ?? <HomePage ownedServices={ownedServices} />)}</main>
     </div>
   )
 }

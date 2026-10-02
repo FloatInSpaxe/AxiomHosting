@@ -617,7 +617,17 @@
 }
 
 .dropdown::before {
-  display: none;
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: var(--pointer-left);
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #151515;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .dropdown::after {
@@ -1130,10 +1140,10 @@
   width: 38px;
   height: 38px;
   place-items: center;
-  color: rgba(255, 255, 255, 0.38);
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  color: #438cf6;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 
 .why-icon svg {
@@ -3078,7 +3088,7 @@
   justify-content: center;
   gap: 9px;
   color: rgba(255, 255, 255, 0.78);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 650;
   text-decoration: none;
 }
