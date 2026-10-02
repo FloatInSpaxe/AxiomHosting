@@ -29,7 +29,7 @@
   height: 60px;
   margin-left: 18px;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
   justify-self: start;
   color: #fff;
   font-size: 17px;
@@ -793,7 +793,7 @@
   height: clamp(96px, 12vw, 140px);
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   margin: 0 auto;
   color: #fff;
   font-size: clamp(54px, 8vw, 104px);

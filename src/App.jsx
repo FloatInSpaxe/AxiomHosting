@@ -1498,8 +1498,8 @@ function App() {
               <h2 id="launcher-title">Download our mod launcher.</h2>
               <p>Keep modpacks, versions, and Axiom Minecraft servers together in one launcher.</p>
               <div className="launcher-actions">
-                {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download <span aria-hidden="true">↓</span></a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download <span aria-hidden="true">→</span></a>}
-                <a className="launcher-action launcher-action--secondary" href="/launcher#about">Learn more <span aria-hidden="true">→</span></a>
+                {launcherDownload ? <a className="launcher-action launcher-action--primary" href={launcherDownload}>Download</a> : <a className="launcher-action launcher-action--primary" href="/launcher">Download</a>}
+                <a className="launcher-action launcher-action--secondary" href="/launcher#about">Learn more</a>
               </div>
             </div>
             <div className="macbook-frame">
