@@ -18,7 +18,7 @@ const serviceCatalog = [
     tags: [`${plan.ram} GB RAM`, `${plan.cpu} CPU ${plan.cpu === 1 ? 'thread' : 'threads'}`, `${plan.storage} GB NVMe`],
   })),
   { id: 'resource-rates', rateGuide: true },
-  { id: 'minecraft-dragon', name: 'Custom', description: 'Build a Minecraft server around your own resource requirements.', tags: ['Custom resources', 'Build your own'], custom: true },
+  { id: 'minecraft-dragon', name: 'Custom Server', description: 'Build a Minecraft server around your own resource requirements.', tags: ['Custom resources', 'Build your own'], custom: true },
 ]
 
 const serviceDetails = {
@@ -33,7 +33,7 @@ const serviceDetails = {
     gameVersions: ['Latest stable', '1.21.x', '1.20.x', 'Custom version'],
   }])),
   'minecraft-dragon': {
-    name: 'Dragon Custom',
+    name: 'Custom Server',
     description: 'Build a custom Minecraft server for your exact requirements.',
     baseMonthly: 5,
     custom: true,
@@ -106,10 +106,6 @@ function DashboardIcon({ name }) {
     news: <><path d="M5 4h14v16H5z" /><path d="M8 8h8M8 12h8M8 16h5" /></>,
   }
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
-}
-
-function DragonHeadIcon() {
-  return <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m8 9 5-5 3 4 3-4 5 5-2 4 3 4-4 10H11L7 17l3-4Z" /><path d="M11 13h3M18 13h3M12 20h8M10 9l-4-3M22 9l4-3" /></svg>
 }
 
 function PackageMobIcon({ name }) {
@@ -217,11 +213,11 @@ function ServicesPage() {
           }
           if (service.custom) {
             return (
-              <article className="package-card is-custom" key={service.id}>
-                <div className="package-custom-heading"><div className="package-icon" aria-hidden="true"><DragonHeadIcon /></div><div className="package-name"><h2>Dragon Custom</h2><span>Build a server around your own needs</span></div></div>
+              <a className="package-card is-custom" href={`/packages/configure/${service.id}`} key={service.id}>
+                <div className="package-custom-heading"><div className="package-name"><h2>Custom Server</h2><span>Build a server around your own needs</span></div></div>
                 <ul className="package-features"><li>Choose RAM and CPU threads</li><li>Choose NVMe storage</li><li>Select a region and Minecraft version</li></ul>
-                <a href={`/packages/configure/${service.id}`}>Customize server <span aria-hidden="true">→</span></a>
-              </article>
+                <span className="package-custom-link">Customize your server <span aria-hidden="true">→</span></span>
+              </a>
             )
           }
           return <article className={`package-card${service.featured ? ' is-featured' : ''}`} key={service.id}>{service.featured && <span className="package-popular">Most popular</span>}<div className="package-icon" aria-hidden="true"><PackageMobIcon name={service.icon} /></div><div className="package-name"><h2>{service.name}</h2><span>24/7 always online</span></div><p className="package-price"><strong>${details.baseMonthly.toFixed(2)}</strong><small>/month</small></p><div className="package-divider" /><ul className="package-features"><li>{details.defaults.ram} GB RAM</li><li>{details.defaults.cpu} CPU {details.defaults.cpu === 1 ? 'thread' : 'threads'}</li><li>{details.defaults.ssd} GB NVMe storage</li><li>Ideal for up to {service.playerGuide} players</li></ul><div className="package-value"><span>${details.normalValue.toFixed(2)} normal value</span><strong>{details.bundleDiscountPercentage > 0 ? `Save $${details.bundleDiscount.toFixed(2)} · ${Math.round(details.bundleDiscountPercentage)}%` : 'Standard resource pricing'}</strong></div><a href={`/packages/configure/${service.id}`}>Select {service.name} <span aria-hidden="true">→</span></a></article>
@@ -358,7 +354,7 @@ function ServiceConfigurationPage({ serviceId, addToCart }) {
         <div className="configuration-faq-list">
           <details>
             <summary>What can I choose?</summary>
-            <p>The nine standard packages have fixed resources. The Dragon Custom package lets you build a custom server. Every package includes billing-cycle, version, and location choices.</p>
+            <p>The nine standard packages have fixed resources. The Custom Server option lets you choose your own resources. Every package includes billing-cycle, version, and location choices.</p>
           </details>
           <details>
             <summary>Which location should I choose?</summary>

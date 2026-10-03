@@ -26,15 +26,18 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: AxiomHosting/website/package-lock.json
 
       - name: Install dependencies
+        working-directory: AxiomHosting/website
         run: npm ci
 
       - name: Build website
+        working-directory: AxiomHosting/website
         run: npm run build
 
       - name: Add single-page fallback
-        run: cp dist/index.html dist/404.html
+        run: cp AxiomHosting/website/dist/index.html AxiomHosting/website/dist/404.html
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -42,7 +45,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: AxiomHosting/website/dist
 
   deploy:
     environment:
